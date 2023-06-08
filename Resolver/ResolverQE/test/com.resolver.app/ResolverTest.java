@@ -1,48 +1,32 @@
 package com.resolver.app;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
-import java.time.Duration;
 import java.util.List;
+import org.testng.Reporter;
 import static com.resolver.app.Constants.*;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
 
 
-public class ResolverTest {
-    WebDriver driver;
-    Utilities utilities;
-    WebDriverWait wait;
-    TestPage testPage;
-
-    @BeforeClass
-    public void setUp(){
-
-        String driverLocation = "/Users/sureshkalyani/JAVA/chromedriver";
-        System.setProperty("webdriver.chromedriver.path",driverLocation);
-        driver = new ChromeDriver();
-        utilities = new Utilities();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        testPage = new TestPage(driver);
-    }
-
-    @AfterClass
-    public void cleanUp(){
-        driver.quit();
-    }
+public class ResolverTest extends BaseTest{
 
     @BeforeMethod
     public void openPage(){
         utilities.openPage(driver);
     }
 
-    @Test(enabled = true)
+    @AfterMethod (enabled = false)
+    public void cleanUpAfterMethod(){
+        driver.quit();
+    }
+
+    @Test
     public void test1_SampleLogin() {
+
+        Reporter.log("Executing Test 1");
 
         WebElement emailField =  testPage.findEmail();
         WebElement passwordField = testPage.findPassword();
@@ -58,58 +42,70 @@ public class ResolverTest {
         passwordField.sendKeys(PASSWORD);
     }
 
-    @Test (enabled = true)
+    @Test
     public void test2_ListItems() {
+
+        Reporter.log("Executing Test 2");
 
         List<WebElement> listItems = testPage.findListOfItems();
         //Assert that there are three values in the listgroup
-        assertEquals("There are three values in the list group", EXPECTEDITEMSINLIST, listItems.size());
+        assertEquals("There are three values in the list group", EXPECTED_ITEMS_IN_LIST, listItems.size());
         //Assert that the second list item's value is set to "List Item 2"
-        assertTrue(listItems.get(1).getText().contains(EXPECTEDSECONDITEMVALUE));
+        assertTrue(listItems.get(1).getText().contains(EXPECTED_SECOND_ITEM_VALUE));
         //Assert that the second list item's badge value is 6
-        assertEquals("Badge Value is 6.", EXPECTEDSECONDITEMBADGEVALUE, testPage.findSecondItemInList().getText());
+        assertEquals("Badge Value is 6.", EXPECTED_SECOND_ITEM_BADGE_VALUE, testPage.findSecondItemInList().getText());
 
     }
 
-    @Test (enabled = true)
+    @Test
     public void test3_dropDown() {
+
+        Reporter.log("Executing Test 3");
+
         //Assert that "Option 1" is the default selected value
-        assertEquals("Default option is Option 1.", EXPECTEDOPTION1, testPage.findDropDown().getText());
+        assertEquals("Default option is Option 1.", EXPECTED_OPTION1, testPage.findDropDown().getText());
         testPage.findDropDown().click();
         testPage.findOption3().click();
         //Assert that "Option 3" is the selected value
-        assertEquals("Selected option is Option 3.", EXPECTEDOPTION3, testPage.findDropDown().getText());
+        assertEquals("Selected option is Option 3.", EXPECTED_OPTION3, testPage.findDropDown().getText());
 
     }
 
-    @Test (enabled = true)
+    @Test
     public void test4_EnabledDisabledButton() {
+
+        Reporter.log("Executing Test 4");
 
         assertEquals("Button 1 is enabled.", true, testPage.findEnabledButton().isEnabled());
         assertEquals("Button 2 is disabled.", false, testPage.findDisabledButton().isEnabled());
 
     }
 
-    @Test (enabled = true)
+    @Test
     public void test5_WaitForButton() {
+
+        Reporter.log("Executing Test 5");
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(testPage.test5Button)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(testPage.test5Alert));
         String actualAlertMessage = testPage.findTest5Alert().getText();
-        assertEquals("Alert message should be same.", EXPECTEDALERTMESSAGE, actualAlertMessage);
+        assertEquals("Alert message should be same.", EXPECTED_ALERT_MESSAGE, actualAlertMessage);
         assertEquals("Button is disabled now.", false, testPage.findTest5Button().isEnabled());
 
     }
 
-    @Test (dataProvider = "test6")
-    public void test6_ValueInGrid(int x, int y, String expectedValueofCell) {
+    @Test (dataProvider = "coordinatesAndValues")
+    public void test6_ValueInGrid(int x, int y, String expectedValueOfCell) {
+
+        Reporter.log("Executing Test 6");
 
         String actualValueOfCell = testPage.findCellValueInTheGrid(x+1,y+1).getText();
-        assertEquals("Expected and Actual values of cell match.", expectedValueofCell, actualValueOfCell);
+        assertEquals("Expected and Actual values of cell match.", expectedValueOfCell, actualValueOfCell);
 
     }
 
-    @DataProvider(name = "test6")
+    //Provides coordinates and expected cell values for test6_ValueInGrid
+    @DataProvider(name = "coordinatesAndValues")
     public static Object[][] cellCoordinatesAndExpectedValues() {
         return new Object[][] {{2, 2, "Ventosanzap"}};
     }
