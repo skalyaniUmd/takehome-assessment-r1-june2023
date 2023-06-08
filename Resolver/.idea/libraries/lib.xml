@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/ResolverQE/lib/jquery-3.5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/ResolverQE/lib/junit-jupiter-api-5.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/ResolverQE/lib/opentest4j-1.2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/ResolverQE/lib/junit-jupiter-5.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/ResolverQE/lib/testng-7.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/ResolverQE/lib/junit-platform-commons-1.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/ResolverQE/lib/slf4j-api-1.7.32.jar!/" />
+      <root url="jar://$PROJECT_DIR$/ResolverQE/lib/jcommander-1.78.jar!/" />
+      <root url="jar://$PROJECT_DIR$/ResolverQE/lib/junit-jupiter-params-5.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/ResolverQE/lib/jsr305-3.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/ResolverQE/lib/junit-jupiter-engine-5.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/ResolverQE/lib/junit-platform-engine-1.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/ResolverQE/lib/apiguardian-api-1.1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
